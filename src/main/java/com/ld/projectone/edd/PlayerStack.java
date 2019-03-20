@@ -2,78 +2,73 @@ package com.ld.projectone.edd;
 
 
 import com.ld.projectone.domain.CardPair;
+import com.ld.projectone.edd.nodes.NodeDouble;
 
-public class PlayerStack<E> {
+public class PlayerStack implements LinkedList<CardPair>  {
 
-    private Node head = null;
-    private Node top = null;
-
-
+    private NodeDouble<CardPair> head = null;
+    private NodeDouble<CardPair> top = null;
 
 
-    public void push(E element){
-
-        Node node = new Node(element);
+    @Override
+    public void add(CardPair element) {
+        NodeDouble<CardPair> node = new NodeDouble(element);
 
         //empty list
         if(head == null && top == null){
             head = top = node;
         }else{
-            node.right = top;
+            node.setRight(top);
+            //TODO validar esto no se está asignando ahorita de null pointer exception
+            //top.getRight().setLeft(node);
             top = node;
         }
-
-
-
     }
 
-
-    public void imprimir() {
-
-        Node aux = top;
+    @Override
+    public void show() {
+        NodeDouble<CardPair> aux = top;
         while (aux != null) {
 
             //mostrar el stack
-            System.out.println(aux.data);
+            System.out.println(aux.getData());
 
-            aux = aux.right;
+            aux = aux.getRight();
         }
     }
 
-    public CardPair pop(){
-
+    @Override
+    public CardPair remove() {
         if(top != null && head != null){
 
-            Node<CardPair> nodeAux = top;
-            top = top.right;
-            nodeAux.right = null;
-            return nodeAux.data;
+            NodeDouble<CardPair> nodeAux = top;
+            top = top.getRight();
+            nodeAux.setRight(null);
+            return nodeAux.getData();
 
         }
         return null;
     }
 
-
-
     public static void main(String[] args) {
-        PlayerStack<CardPair> player = new PlayerStack<>();
+        PlayerStack player = new PlayerStack();
         CardPair card = new CardPair("black", 1);
-        player.push(card);
+        player.add(card);
         CardPair card2 = new CardPair("blue", 3);
-        player.push(card2);
+        player.add(card2);
         CardPair card3 = new CardPair("yellow", 8);
-        player.push(card3);
-        player.imprimir();
+        player.add(card3);
+        player.show();
         System.out.println("------------------------------");
-        CardPair card4 = player.pop();
+        CardPair card4 = player.remove();
         System.out.println(card4.toString());
         System.out.println("------------------------------");
-        player.imprimir();
+        player.show();
         System.out.println("------------------------------");
-        CardPair card5 = player.pop();
+        CardPair card5 = player.remove();
         System.out.println(card5.toString());
         System.out.println("------------------------------");
-        player.imprimir();
+        player.show();
     }
 
 }
