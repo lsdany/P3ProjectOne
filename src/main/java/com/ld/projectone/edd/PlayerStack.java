@@ -6,7 +6,7 @@ import com.ld.projectone.domain.CardPair;
 public class PlayerStack<E> {
 
     private Node head = null;
-    private Node tail = null;
+    private Node top = null;
 
 
 
@@ -16,12 +16,11 @@ public class PlayerStack<E> {
         Node node = new Node(element);
 
         //empty list
-        if(head == null && tail == null){
-            head = tail = node;
+        if(head == null && top == null){
+            head = top = node;
         }else{
-            node.right = tail;
-            tail.left = node;
-            tail = node;
+            node.right = top;
+            top = node;
         }
 
 
@@ -29,22 +28,29 @@ public class PlayerStack<E> {
     }
 
 
-    public String imprimir() {
+    public void imprimir() {
 
-        Node aux = head;
-        StringBuilder info = new StringBuilder();
+        Node aux = top;
         while (aux != null) {
 
             //mostrar el stack
             System.out.println(aux.data);
 
-            aux = aux.left;
+            aux = aux.right;
         }
-        return info.toString();
     }
 
-    public void pop(){
+    public CardPair pop(){
 
+        if(top != null && head != null){
+
+            Node<CardPair> nodeAux = top;
+            top = top.right;
+            nodeAux.right = null;
+            return nodeAux.data;
+
+        }
+        return null;
     }
 
 
@@ -55,6 +61,18 @@ public class PlayerStack<E> {
         player.push(card);
         CardPair card2 = new CardPair("blue", 3);
         player.push(card2);
+        CardPair card3 = new CardPair("yellow", 8);
+        player.push(card3);
+        player.imprimir();
+        System.out.println("------------------------------");
+        CardPair card4 = player.pop();
+        System.out.println(card4.toString());
+        System.out.println("------------------------------");
+        player.imprimir();
+        System.out.println("------------------------------");
+        CardPair card5 = player.pop();
+        System.out.println(card5.toString());
+        System.out.println("------------------------------");
         player.imprimir();
     }
 
