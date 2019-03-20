@@ -1,5 +1,8 @@
 package com.ld.projectone.edd;
 
+
+import com.ld.projectone.domain.CardPair;
+
 public class PlayerStack<E> {
 
     private Node head = null;
@@ -8,7 +11,7 @@ public class PlayerStack<E> {
 
 
 
-    public void addElement(E element){
+    public void push(E element){
 
         Node node = new Node(element);
 
@@ -33,17 +36,26 @@ public class PlayerStack<E> {
         while (aux != null) {
 
             //mostrar el stack
+            System.out.println(aux.data);
 
             aux = aux.left;
         }
         return info.toString();
     }
 
+    public void pop(){
 
-    public void explore(){
+    }
 
 
 
+    public static void main(String[] args) {
+        PlayerStack<CardPair> player = new PlayerStack<>();
+        CardPair card = new CardPair("black", 1);
+        player.push(card);
+        CardPair card2 = new CardPair("blue", 3);
+        player.push(card2);
+        player.imprimir();
     }
 
 }
