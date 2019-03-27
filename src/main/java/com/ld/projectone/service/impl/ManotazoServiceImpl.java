@@ -41,7 +41,7 @@ public class ManotazoServiceImpl implements ManotazoService {
         for(int i = 0; i < cardColors.length; i++){
             for(int j = 0 ; j < cardNumbers.length; j++){
                 //deck[i][j] = new CardPair(cardColors[i], cardNumbers[j]);
-                deckList.add(new CardPair(cardColors[i], cardNumbers[j]));
+                deckList.add(new CardPair( cardNumbers[j],cardColors[i]));
             }
         }
     }

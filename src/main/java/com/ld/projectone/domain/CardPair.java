@@ -1,8 +1,6 @@
 package com.ld.projectone.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  *
@@ -14,9 +12,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
+@Builder
+@NoArgsConstructor
 public class CardPair {
 
-    private String color;
     private int number;
+    private String colour;
 
 }
