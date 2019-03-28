@@ -36,8 +36,8 @@ function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
-    // Tell your username to the server
-    stompClient.send("/app/chat.add",
+    // Tell your username to the server and create deck
+    stompClient.send("/app/game.add",
         {},
         JSON.stringify({sender: username, type: 'JOINING'})
     )
@@ -62,7 +62,7 @@ function sendMessage(event) {
             type: 'IN_CHAT'
         };
 
-        stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/game.send", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();

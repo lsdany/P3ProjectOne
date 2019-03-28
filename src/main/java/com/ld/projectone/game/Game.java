@@ -1,12 +1,16 @@
 package com.ld.projectone.game;
 
 import com.ld.projectone.domain.CardPair;
+import com.ld.projectone.edd.PlayerStack;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+//@Component
 public class Game {
 
     private String[] colours = {"red", "blue", "yellow", "black"};
@@ -14,10 +18,14 @@ public class Game {
     private CardPair[][] deck;
     private List<CardPair> deckList;
 
-    public void scrambleRandomDeck(){
+    private List<CardPair> deckRandom;
+
+    private void scrambleRandomDeck(){
 
         Random random = new Random();
-        CardPair[][] deckRandom = new CardPair[numbers.length][colours.length];
+        //CardPair[][] deckRandom = new CardPair[numbers.length][colours.length];
+
+        deckRandom = new ArrayList<>();
 
         for(int i = 0; i < numbers.length ; i ++)
             for(int j = 0; j < colours.length; j ++){
@@ -28,14 +36,13 @@ public class Game {
                 CardPair card = deckList.get(number);
 
                 if(card!=null){
-                    deckRandom[i][j] = card;
-
+                    deckRandom.add(card);
                     deckList.remove(card);
                 }
 
         }
 
-        System.out.println(Arrays.deepToString(deckRandom));
+        System.out.println(deckRandom);
 
     }
 
@@ -58,6 +65,17 @@ public class Game {
         game.createDeck();
 
         game.scrambleRandomDeck();
+    }
+
+    public PlayerStack getUserDeck(){
+
+        PlayerStack playerDeck = new PlayerStack();
+
+        for(CardPair c : deckRandom){
+
+        }
+
+        return null;
     }
 
 }

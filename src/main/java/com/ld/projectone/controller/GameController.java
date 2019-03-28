@@ -1,7 +1,9 @@
 package com.ld.projectone.controller;
 
 import com.ld.projectone.domain.Message;
+import com.ld.projectone.game.Game;
 import com.ld.projectone.service.impl.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -12,23 +14,24 @@ import org.springframework.stereotype.Controller;
 
 @Slf4j
 @Controller
-public class MessageController {
+@AllArgsConstructor
+public class GameController {
 
-    @Autowired
     private UserService userService;
 
-    @MessageMapping("/chat.send")
+    @MessageMapping("/game.send")
     @SendTo("/topic/public")
     public Message send(@Payload Message message){
         log.info("send");
         return message;
     }
 
-    @MessageMapping("/chat.add")
+    @MessageMapping("/game.add")
     @SendTo("/topic/public")
     public Message add(@Payload Message message, SimpMessageHeaderAccessor simpMessageHeaderAccessor){
+
+        log.info("adding user {} to the game", message.getSender());
         simpMessageHeaderAccessor.getSessionAttributes().put("username",message.getSender());
-        log.info("add");
         userService.createUser(message.getSender());
         return  message;
     }

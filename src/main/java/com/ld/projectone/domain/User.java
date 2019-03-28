@@ -15,7 +15,7 @@ import lombok.Getter;
 @Getter
 public class User {
 
-    String userName;
+    private String userName;
     private PlayerStack userDeck;
 
 }
