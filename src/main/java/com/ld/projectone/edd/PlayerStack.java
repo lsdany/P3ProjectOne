@@ -57,6 +57,21 @@ public class PlayerStack implements LinkedList<CardPair>  {
         return null;
     }
 
+
+    @Override
+    public String toString() {
+
+        NodeDouble<CardPair> aux = top;
+        StringBuilder stringNode = new StringBuilder();
+        while (aux != null) {
+            //mostrar el stack
+            stringNode.append(aux.getData());
+            aux = aux.getRight();
+        }
+
+        return stringNode.toString();
+    }
+
     public static void main(String[] args) {
 //        PlayerStack player = new PlayerStack();
 //        CardPair card = new CardPair("black", 1);
