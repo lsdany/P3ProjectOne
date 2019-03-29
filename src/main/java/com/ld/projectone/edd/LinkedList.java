@@ -8,4 +8,6 @@ public interface LinkedList<E> {
 
     E remove();
 
+    E get();
+
 }

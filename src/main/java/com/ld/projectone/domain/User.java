@@ -19,5 +19,6 @@ public class User {
 
     private String userName;
     private PlayerStack userDeck;
+    private int order;
 
 }

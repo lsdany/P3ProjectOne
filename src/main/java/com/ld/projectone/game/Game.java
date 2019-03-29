@@ -2,8 +2,12 @@ package com.ld.projectone.game;
 
 import com.ld.projectone.domain.CardPair;
 import com.ld.projectone.domain.User;
+import com.ld.projectone.edd.LinkedList;
+import com.ld.projectone.edd.LinkedListSimple;
 import com.ld.projectone.edd.PlayerStack;
+import com.ld.projectone.service.impl.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +22,20 @@ public class Game {
 
     private String[] colours = {"red", "blue", "yellow", "black"};
     private int[] numbers = {0,1,2,3,4,5,6,7,8,9};
+
     private List<CardPair> deckList;
-
     private List<CardPair> deckRandom;
-    private User[] users = new User[3];
 
+    private LinkedList<CardPair> centralDeck;
+    private int turno;
+
+    @Autowired
+    private UserService userService;
 
     public Game(){
         createDeck();
         scrambleRandomDeck();
+        centralDeck = new LinkedListSimple();
     }
 
     private void scrambleRandomDeck(){
@@ -77,14 +86,21 @@ public class Game {
             }
         }
 
+        if(getUsersNumber() == 3){
+            for(CardPair c : deckRandom){
+                centralDeck.add(c);
+            }
+        }
+
         return playerDeck;
     }
 
-    private boolean isUserSpace(){
+    private int getUsersNumber(){
+        return userService.getNumberUsers();
+    }
 
-        if(users.length == 3)
-            return true;
-        return false;
+    public CardPair getCard(PlayerStack stack){
+         return stack.get();
     }
 
 }
