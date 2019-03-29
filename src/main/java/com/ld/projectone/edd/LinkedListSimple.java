@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 
 @Slf4j
-public class LikedList implements LinkedList<CardPair> {
+public class LinkedListSimple implements LinkedList<CardPair> {
 
     private Node<CardPair> head;
 
@@ -59,7 +59,7 @@ public class LikedList implements LinkedList<CardPair> {
 
     public static void main(String[] args) {
 
-        LinkedList<CardPair> list = new LikedList();
+        LinkedList<CardPair> list = new LinkedListSimple();
 
         CardPair cardPair1 =  CardPair.builder().colour("red").number(2).build();
         CardPair cardPair2 =  CardPair.builder().colour("blue").number(1).build();
@@ -71,5 +71,10 @@ public class LikedList implements LinkedList<CardPair> {
 
         list.show();
 
+    }
+
+    @Override
+    public CardPair get() {
+        return null;
     }
 }

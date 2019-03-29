@@ -11,6 +11,7 @@ public class Message {
     private String content;
     private String sender;
     private Type type;
+    private CardPair cardPair;
 
     public enum Type{
         IN_CHAT, JOINING, LEAVING

@@ -2,6 +2,7 @@ package com.ld.projectone.edd;
 
 
 import com.ld.projectone.domain.CardPair;
+import com.ld.projectone.edd.nodes.Node;
 import com.ld.projectone.edd.nodes.NodeDouble;
 
 /**
@@ -13,7 +14,7 @@ import com.ld.projectone.edd.nodes.NodeDouble;
 
 public class PlayerStack implements LinkedList<CardPair>  {
 
-    private NodeDouble<CardPair> head = null;
+    private NodeDouble<CardPair> first = null;
     private NodeDouble<CardPair> top = null;
 
 
@@ -22,8 +23,8 @@ public class PlayerStack implements LinkedList<CardPair>  {
         NodeDouble<CardPair> node = new NodeDouble<>(element);
 
         //empty list
-        if(head == null && top == null){
-            head = top = node;
+        if(first == null && top == null){
+            first = top = node;
         }else{
             node.setRight(top);
             //TODO validar esto no se está asignando ahorita de null pointer exception
@@ -46,7 +47,7 @@ public class PlayerStack implements LinkedList<CardPair>  {
 
     @Override
     public CardPair remove() {
-        if(top != null && head != null){
+        if(top != null && first != null){
 
             NodeDouble<CardPair> nodeAux = top;
             top = top.getRight();
@@ -70,6 +71,22 @@ public class PlayerStack implements LinkedList<CardPair>  {
         }
 
         return stringNode.toString();
+    }
+
+    //hace las de un pop en un stack
+    @Override
+    public CardPair get() {
+
+        if(top != null){
+            NodeDouble<CardPair> aux = top;
+            CardPair card = aux.getData();
+            aux.getRight().setLeft(null);
+            top = aux.getRight();
+
+            return card;
+        }
+
+        return null;
     }
 
     public static void main(String[] args) {

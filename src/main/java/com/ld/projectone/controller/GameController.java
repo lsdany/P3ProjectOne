@@ -18,10 +18,25 @@ import org.springframework.stereotype.Controller;
 public class GameController {
 
     private UserService userService;
+    private Game game;
+
+    public enum GAME_ACTION{
+        CARTA , MANOTAZO
+    }
 
     @MessageMapping("/game.send")
     @SendTo("/topic/public")
     public Message send(@Payload Message message){
+        String user = message.getSender();
+        if(message.getContent().equals(GAME_ACTION.CARTA)){
+            //si la carta es null, ya no tiene cartas y debe ganar el juego
+            message.setCardPair(userService.getUserCard(user));
+            return message;
+        }else
+            if(message.getContent().equals(GAME_ACTION.MANOTAZO)){
+
+            }
+
         log.info("send");
         return message;
     }
