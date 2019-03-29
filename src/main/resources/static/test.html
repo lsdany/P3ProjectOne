@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table.Cards {
+            width: 100%;                    
+        }
+        td.Cards{
+            text-align: center;                    
+        }
+        img#card{
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function changeCard(number, color){
+            document.getElementById('card').src= 'images/'+number+color+'.jpg';
+        }
+
+        function nextNum(){
+            var num = parseInt(document.getElementById('num').innerHTML, 10);
+            num++;
+            if(num == 10) num = 0;
+            document.getElementById('num').innerHTML = num.toString();
+        }
+    </script>
+    <table class="Cards">
+        <tr>
+            <td class="Cards" colspan="2">
+                <h1 id="num">0</h1>
+            </td>
+        </tr>
+        <tr>
+            <td class="Cards" colspan="2">
+                <img id="card" src="images/1R.jpg" alt="1Amarillo" width="140"
+                height="215">
+            </td>
+        </tr>
+        <tr>
+            <td class="Cards">
+                <button type="button"
+                onclick="changeCard('2','B');" >
+                Cambiar</button>
+            </td>
+            <td class="Cards">
+                    <button type="button"
+                    onclick="nextNum();" >
+                    Siguiente Numero</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
