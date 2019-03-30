@@ -83,7 +83,7 @@ button {
     border-radius: 2px;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
-    min-height: 38px;
+    min-height: 60px;
 }
 
 button.default {
@@ -139,14 +139,14 @@ button.accent {
 }
 
 .chat-container {
-    max-width: 700px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     margin-top: 30px;
     height: calc(100% - 60px);
-    max-height: 600px;
+    max-height: 700px;
     position: relative;
 }
 
@@ -218,6 +218,10 @@ button.accent {
     color: #43464b;
 }
 
+#game-counter .game-count label{
+    color: #ff4743;
+}
+
 #messageForm .input-group input {
     float: left;
     width: calc(100% - 85px);
@@ -225,9 +229,9 @@ button.accent {
 
 #messageForm .input-group button {
     float: left;
-    width: 80px;
+    width: 120px;
     height: 38px;
-    margin-left: 5px;
+    margin-left: 15px;
 }
 
 .chat-header {

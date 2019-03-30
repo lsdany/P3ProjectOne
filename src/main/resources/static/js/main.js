@@ -8,8 +8,12 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 
+var counterArea = document.querySelector("#counterArea");
+var cardArea = document.querySelector("#cardArea");
+
 var stompClient = null;
 var username = null;
+
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -51,14 +55,19 @@ function onError(error) {
     connectingElement.style.color = 'red';
 }
 
-//esta es la funcion que envia el chat
+//esta es la funcion que solicita la carta
 function sendMessage(event) {
-    var messageContent = messageInput.value.trim();
 
-    if(messageContent && stompClient) {
+
+
+    //var messageContent = messageInput.value.trim();
+
+    if(stompClient) {
         var chatMessage = {
             sender: username,
-            content: messageInput.value,
+            //content: messageInput.value,
+            content: 'CARTA',
+            //turno: playerTurn,
             type: 'IN_CHAT'
         };
 
@@ -70,18 +79,52 @@ function sendMessage(event) {
 
 
 function onMessageReceived(payload) {
+
+    // var elementos = counterArea.getElementsByTagName('label');
+    // console.log("Elementos: "+elementos.);
+    //counterArea.removeAttribute('id');
+    //counterArea.getC
+
+
+
     var message = JSON.parse(payload.body);
 
+    console.log("Mensajes obtenido" + message);
+
     var messageElement = document.createElement('li');
+    var counterLabel = document.createElement('label');
+    counterLabel.setAttribute('id','countLabel');
+
+    var imageElement = document.createElement('img');
+    imageElement.setAttribute('id', 'cardImg');
+    imageElement.setAttribute('src','images/1R.jpg');
+    imageElement.setAttribute('width', '163');
+    imageElement.setAttribute('height', '208');
+
 
     if(message.type === 'JOINING') {
+
+        //uniendose al juego
+
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
     } else if (message.type === 'LEAVING') {
+
+        //dejando el juego
+
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
     } else {
+
+        //mensaje
+
+        var elemToRemove = document.getElementById("countLabel");
+        if(elemToRemove)
+            counterArea.removeChild(elemToRemove);
+
+
         messageElement.classList.add('chat-message');
+        counterLabel.classList.add('game-count');
 
         var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(message.sender[0]);
@@ -94,16 +137,24 @@ function onMessageReceived(payload) {
         var usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
+
+        var countText = document.createTextNode(message.turno);
+        counterLabel.appendChild(countText);
+
+
     }
 
     var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
+    var messageText = document.createTextNode(message.cardPair.colour);
     textElement.appendChild(messageText);
-
     messageElement.appendChild(textElement);
+
+    counterArea.appendChild(counterLabel);
+    cardArea.appendChild(imageElement);
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+
 }
 
 

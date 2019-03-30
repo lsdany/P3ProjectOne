@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 @AllArgsConstructor
 public class GameController {
 
-    private UserService userService;
+    //private UserService userService;
     private Game game;
 
     public enum GAME_ACTION{
@@ -28,9 +28,11 @@ public class GameController {
     @SendTo("/topic/public")
     public Message send(@Payload Message message){
         String user = message.getSender();
-        if(message.getContent().equals(GAME_ACTION.CARTA)){
+        int turno = message.getTurno();
+        if(message.getContent().equals(GAME_ACTION.CARTA.toString())){
             //si la carta es null, ya no tiene cartas y debe ganar el juego
-            message.setCardPair(userService.getUserCard(user));
+            message.setCardPair(game.getUserCard(user));
+            message.setTurno(game.getTurn());
             return message;
         }else
             if(message.getContent().equals(GAME_ACTION.MANOTAZO)){
@@ -47,7 +49,7 @@ public class GameController {
 
         log.info("adding user {} to the game", message.getSender());
         simpMessageHeaderAccessor.getSessionAttributes().put("username",message.getSender());
-        userService.createUser(message.getSender());
+        game.createUser(message.getSender());
         return  message;
     }
 

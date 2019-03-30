@@ -4,10 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Manotazo</title>
     <link rel="stylesheet" href="/css/main.css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
 </head>
 <body>
 <noscript>
-    <h2>Sorry! Your browser doesn't support Javascript</h2>
+    <h2>Activa la opción de Javascript!</h2>
 </noscript>
 
 <div id="username-page">
@@ -26,6 +28,13 @@
 
 <div id="chat-page" class="hidden">
     <div class="chat-container">
+
+        <div id="counterArea">
+        </div>
+
+        <div id="cardArea"></div>
+
+
         <div class="chat-header">
             <h2>Primer Proyecto - Manotazo</h2>
         </div>
@@ -38,8 +47,10 @@
         <form id="messageForm" name="messageForm" nameForm="messageForm">
             <div class="form-group">
                 <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                    <button type="submit" class="primary">Pedir Carta</button>
+<!--                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>-->
+                    <button type="button" class="primary" onclick="sendMessage()">Pedir Carta</button>
+
+                    <button type="submit" class="primary">Manotazo</button>
                 </div>
             </div>
         </form>

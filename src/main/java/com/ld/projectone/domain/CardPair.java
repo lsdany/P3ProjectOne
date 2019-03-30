@@ -2,6 +2,8 @@ package com.ld.projectone.domain;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  *
  * Par de datos que conforman una carta, su numero y su color
@@ -14,7 +16,7 @@ import lombok.*;
 @ToString
 @Builder
 @NoArgsConstructor
-public class CardPair {
+public class CardPair implements Serializable {
 
     private int number;
     private String colour;

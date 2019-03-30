@@ -18,20 +18,10 @@ public class UserService {
 
     private Map<String,User> users = new HashMap<>();
 
-    private Game game;
-
-    public UserService (Game game){
-        this.game = game;
-    }
-
-    public void createUser(String userName){
-        assignUser(userName);
-    }
-
-    private void assignUser(String userName){
+    public void assignUser(String userName, PlayerStack deck){
 
         if(users.size() < 4){
-            PlayerStack deck = game.getUserDeck();
+            //PlayerStack deck = game.getUserDeck();
             User user =  User.builder().userName(userName).userDeck(deck).order(users.size()+1).build();
             users.put(user.getUserName(),user);
             users.forEach((k,v) -> log.info("key: {} , values: {}",k,v.toString()));
@@ -42,11 +32,18 @@ public class UserService {
         return users.size();
     }
 
-    public CardPair getUserCard(String userName){
+    public CardPair getCardFromDeck(String userName, int turno){
 
         if(users.containsKey(userName)){
+            log.info("Usuario exite: {}",userName);
             User user = users.get(userName);
+            //if(user.getOrder() == turno){
 
+                //todo entregar carta
+                PlayerStack stack = user.getUserDeck();
+                return stack.get();
+
+            //}
 
 
         }
