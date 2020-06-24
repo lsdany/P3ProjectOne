@@ -1,56 +1,28 @@
 package com.ld.projectone.controller;
 
-import com.ld.projectone.domain.Message;
-import com.ld.projectone.game.Game;
-import com.ld.projectone.service.impl.UserService;
+import com.ld.projectone.domain.MessageNew;
+import com.ld.projectone.domain.OutputMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Slf4j
 @Controller
 @AllArgsConstructor
 public class GameController {
 
-    //private UserService userService;
-    private Game game;
 
-    public enum GAME_ACTION{
-        CARTA , MANOTAZO
-    }
-
-    @MessageMapping("/game.send")
+    @MessageMapping("/chat")
     @SendTo("/topic/public")
-    public Message send(@Payload Message message){
-        String user = message.getSender();
-        int turno = message.getTurno();
-        if(message.getContent().equals(GAME_ACTION.CARTA.toString())){
-            //si la carta es null, ya no tiene cartas y debe ganar el juego
-            message.setCardPair(game.getUserCard(user));
-            message.setTurno(game.getTurn());
-            return message;
-        }else
-            if(message.getContent().equals(GAME_ACTION.MANOTAZO)){
-
-            }
-
-        log.info("send");
-        return message;
-    }
-
-    @MessageMapping("/game.add")
-    @SendTo("/topic/public")
-    public Message add(@Payload Message message, SimpMessageHeaderAccessor simpMessageHeaderAccessor){
-
-        log.info("adding user {} to the game", message.getSender());
-        simpMessageHeaderAccessor.getSessionAttributes().put("username",message.getSender());
-        game.createUser(message.getSender());
-        return  message;
+    public OutputMessage send(MessageNew message) throws Exception {
+        log.info("Message received {} ", message.toString());
+        String time = new SimpleDateFormat("HH:mm").format(new Date());
+        return new OutputMessage(message.getFrom(), message.getText(), time);
     }
 
 }

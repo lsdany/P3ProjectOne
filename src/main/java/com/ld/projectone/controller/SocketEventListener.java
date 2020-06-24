@@ -1,6 +1,6 @@
 package com.ld.projectone.controller;
 
-import com.ld.projectone.domain.Message;
+import com.ld.projectone.domain.MessageNew;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -29,9 +29,9 @@ public class SocketEventListener {
         if(userName != null){
             log.info("Disconnected: "+userName);
 
-            Message message = new Message();
-            message.setType(Message.Type.LEAVING);
-            message.setSender(userName);
+            MessageNew message = new MessageNew();
+            message.setFrom("home");
+            message.setText("disconnected");
 
             simpMessageSendingOperations.convertAndSend("/topic/public", message);
         }
